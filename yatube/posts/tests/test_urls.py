@@ -101,3 +101,16 @@ class StaticURLTests(TestCase):
             with self.subTest(url=url):
                 response = self.author_client.get(url, follow=True)
                 self.assertTemplateUsed(response, template)
+
+    def test_cache(self):
+        posts_count = Post.objects.count()
+        response = self.client.get('/').content
+        Post.objects.create(
+            author=self.author,
+            text='Тестовая группа',)
+        self.assertEqual(Post.objects.count(), posts_count + 1)
+        self.assertEqual(
+            response, self.client.get('/').content)
+        cache.clear()
+        self.assertNotEqual(
+            response, self.client.get('/').content)

@@ -151,36 +151,3 @@ class FormTests(TestCase):
         })
         self.assertEqual(Post.objects.all().count(), 1)
         self.assertEqual(response.status_code, 302)
-
-    # def test_comment(self):
-    #     self.assertEqual(Comment.objects.all().count(), 1)
-    #     reverse('add_comment', kwargs={
-    #             'author': self.client,
-    #             'post_id': post.id
-    #     }),
-    #     data = {
-    #         'text': 'Текст комментария',
-    #     }
-    #     FormTests.author_client.post(url, data=data)
-
-    #     self.assertEqual(Comment.objects.all().count(), 2)
-
-    #     new_comment = Comment.objects.order_by('id').last()
-    #     self.assertEqual(new_comment.text, data['text'])
-    # def test_comment(self):
-    #     post = Post.objects.all()
-    #     form_data = {
-    #         'text': 'текст'
-    #     }
-    #     response = self.client.post(
-    #         reverse('add_comment', kwargs={
-    #             'author': self.client,
-    #             'post_id': post
-    #         }),
-    #         data=form_data,
-    #         follow=True
-    #     )
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertTrue(Comment.objects.filter(text=form_data['text'],
-    #                                            id=post_id,
-    #                                            author=self.author))

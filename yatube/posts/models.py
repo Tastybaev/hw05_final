@@ -80,3 +80,17 @@ class Comment(models.Model):
 
     class Meta:
         verbose_name = 'Пост комментария'
+
+# class Follow(models.Model):
+#     user = models.models.ForeignKey(
+#         User,
+#         on_delete=models.CASCADE
+#         verbose_name= 'Автор',
+#         related_name = 'follower'
+#     )
+#     author = models.ForeignKey(
+#         User,
+#         on_delete=models.CASCADE,
+#         related_name='following',
+#         verbose_name='Автор',
+#     )
