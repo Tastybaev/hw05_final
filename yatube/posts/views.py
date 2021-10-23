@@ -62,6 +62,7 @@ def post_detail(request, post_id):
         'post_id': post_id,
         'posts_count': posts_count,
         'is_author': is_author,
+        'comments': post.comments,
     }
     form = CommentForm(request.POST or None)
     if form.is_valid():
@@ -124,7 +125,6 @@ def profile_follow(request, username):
     if request.user != username and not Follow.objects.filter(author=author, user=request.user).exists():
         follow = Follow(author=username, user=request.user)
         follow.save()
-
     return redirect('posts:profile', username=username)
 
 @login_required
