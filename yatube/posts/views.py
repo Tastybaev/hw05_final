@@ -121,7 +121,7 @@ def follow_index(request):
 @login_required
 def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
-    if request.user != username and not Follow.objects.filter(author=author, user=request.user).exists():
+    if request.user != username and not Follow.objects.filter(author=username, user=request.user).exists():
         follow = Follow(author=username, user=request.user)
         follow.save()
 
@@ -129,8 +129,7 @@ def profile_follow(request, username):
 
 @login_required
 def profile_unfollow(request, username):
-    following = Follow.objects.filter(author__following__user=request.user)
-    if following.exists():
+    following = Follow.objects.filter(author=username, user=request.user).first()
+    if following is not None:
         following.delete()
-        return redirect('posts:profile', username=username)
     return redirect('posts:profile', username=username)
