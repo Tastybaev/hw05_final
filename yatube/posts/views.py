@@ -62,7 +62,7 @@ def post_detail(request, post_id):
         'post_id': post_id,
         'posts_count': posts_count,
         'is_author': is_author,
-        'comments': post.comments,
+        'comments': Comment.objects.filter(post=post),
     }
     form = CommentForm(request.POST or None)
     if form.is_valid():
@@ -122,14 +122,15 @@ def follow_index(request):
 @login_required
 def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
-    if request.user != username and not Follow.objects.filter(author=username, user=request.user).exists():
-        follow = Follow(author=username, user=request.user)
+    if request.user.username != username and not Follow.objects.filter(author=author, user=request.user).exists():
+        follow = Follow(author=author, user=request.user)
         follow.save()
-    return redirect('posts:profile', username=username)
+    return render(request, 'posts/follow.html', {})
 
 @login_required
 def profile_unfollow(request, username):
-    following = Follow.objects.filter(author=username, user=request.user).first()
+    author = get_object_or_404(User, username=username)
+    following = Follow.objects.filter(author=author, user=request.user).first()
     if following is not None:
         following.delete()
     return redirect('posts:profile', username=username)
