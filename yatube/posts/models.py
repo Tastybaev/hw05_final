@@ -81,16 +81,18 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Пост комментария'
 
-# class Follow(models.Model):
-#     user = models.models.ForeignKey(
-#         User,
-#         on_delete=models.CASCADE
-#         verbose_name= 'Автор',
-#         related_name = 'follower'
-#     )
-#     author = models.ForeignKey(
-#         User,
-#         on_delete=models.CASCADE,
-#         related_name='following',
-#         verbose_name='Автор',
-#     )
+class Follow(models.Model):
+    following = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="following"
+    )
+    follower = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="follower"
+    )
+    follow_time = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = (('following', 'follower'), )

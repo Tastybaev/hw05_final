@@ -112,3 +112,29 @@ def add_comment(request, post_id):
         comment.post = post
         comment.save()
     return redirect('posts:post_detail', post_id=post_id)
+
+@login_required
+def follow_index(request):
+    post = Post.object.filter(author__following__user=request.user)
+    return render(request, 'posts/follow.html', {'page_obj': page_obj})
+
+@login_required
+def profile_follow(request, username):
+    author = get_object_or_404(User, username=username)
+    if request.user
+        and request.user.username != author
+        and Follow.objects.filter(author=author, user=request.user).exists()
+    )
+    context = {
+        'author': author,
+        'page_obj': page_obj,
+    }
+    return render(request, 'posts/profile.html', context)
+
+@login_required
+def profile_unfollow(request, username):
+    following = Follow.objects.filter(author__following__user=request.user)
+    if following.exists():
+        following.delete()
+        return redirect('posts:profile', username=username)
+    return redirect('posts:profile', username=username)
