@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.cache import cache_page
 
 from .forms import PostForm, CommentForm
-from .models import Group, Post, User, Comment
+from .models import Group, Post, User, Comment, Follow
 
 
 @cache_page(60 * 15)
@@ -121,15 +121,11 @@ def follow_index(request):
 @login_required
 def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
-    if request.user
-        and request.user.username != author
-        and Follow.objects.filter(author=author, user=request.user).exists()
-    )
-    context = {
-        'author': author,
-        'page_obj': page_obj,
-    }
-    return render(request, 'posts/profile.html', context)
+    if request.user != username and not Follow.objects.filter(author=author, user=request.user).exists():
+        follow = Follow(author=username, user=request.user)
+        follow.save()
+
+    return redirect('posts:profile', username=username)
 
 @login_required
 def profile_unfollow(request, username):

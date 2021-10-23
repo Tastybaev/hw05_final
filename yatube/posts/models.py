@@ -82,12 +82,12 @@ class Comment(models.Model):
         verbose_name = 'Пост комментария'
 
 class Follow(models.Model):
-    following = models.ForeignKey(
+    author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="following"
     )
-    follower = models.ForeignKey(
+    user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="follower"
@@ -95,4 +95,4 @@ class Follow(models.Model):
     follow_time = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = (('following', 'follower'), )
+        unique_together = (('author', 'user'), )
