@@ -41,8 +41,9 @@ def group_posts(request, slug):
 
 def profile(request, username):
     user = get_object_or_404(User, username=username)
-    following = request.user.is_authenticated and \
-        Follow.objects.filter(author=user, user=request.user).exists()
+    following = request.user.is_authenticated and Follow.objects.filter(
+        author=user, user=request.user
+        ).exists()
     post_list = Post.objects.filter(author=user)
     paginator = Paginator(post_list, settings.PAGINATOR_OBJECTS_PER_PAGE)
     page_number = request.GET.get("page")
@@ -59,7 +60,7 @@ def profile(request, username):
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     posts_count = post.author.posts.all().count()
-    is_author = request.user == post.author   
+    is_author = request.user == post.author
     context = {
         'post': post,
         'post_id': post_id,
@@ -107,6 +108,7 @@ def post_edit(request, post_id):
         'is_edit': True,
     })
 
+
 @login_required
 def add_comment(request, post_id):
     post = get_object_or_404(Post, id=post_id)
@@ -118,22 +120,26 @@ def add_comment(request, post_id):
         comment.save()
     return redirect('posts:post_detail', post_id=post_id)
 
+
 @login_required
 def follow_index(request):
     posts = Post.objects.filter(author__following__user=request.user)
     paginator = Paginator(posts, settings.PAGINATOR_OBJECTS_PER_PAGE)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
     return render(request, 'posts/follow.html', {'page_obj': page_obj})
+
 
 @login_required
 def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
-    if request.user.username != username and not Follow.objects.filter(author=author, user=request.user).exists():
+    if request.user.username != username and not Follow.objects.filter(
+        author=author, user=request.user
+        ).exists():
         follow = Follow(author=author, user=request.user)
         follow.save()
     return render(request, 'posts/follow.html')
+
 
 @login_required
 def profile_unfollow(request, username):

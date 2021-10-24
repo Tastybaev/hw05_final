@@ -19,8 +19,8 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('text',)
         labels = {
-           'text': 'Текст комментария' 
+            'text': 'Текст комментария'
         }
         help_texts = {
             'text': 'Текст нового комментария',
-        } 
+        }

@@ -74,12 +74,13 @@ class Comment(models.Model):
         'date published',
         auto_now_add=True,
     )
-    
+
     def __str__(self):
         return self.text[:15]
 
     class Meta:
         verbose_name = 'Пост комментария'
+
 
 class Follow(models.Model):
     author = models.ForeignKey(

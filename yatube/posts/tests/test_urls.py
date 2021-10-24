@@ -29,6 +29,7 @@ class StaticURLTests(TestCase):
             author=cls.author,
             text='Тестовая группа',
         )
+
     def test_static_pages(self):
         url_pages = [
             '/',
@@ -39,6 +40,7 @@ class StaticURLTests(TestCase):
             with self.subTest(url=url):
                 response = self.client.get(url)
                 self.assertEqual(response.status_code, 200)
+
     def test_urls_return_correct_codes(self):
         # url -> (anonymous, reader, author)
         code_url_names = {
