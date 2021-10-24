@@ -157,7 +157,7 @@ class ViewTests(TestCase):
                 for post in response.context['page_obj']:
                     self.assertTrue(
                         post.image.url.startswith("/media/posts/"
-                    ))
+                ))
 
     def test_profile_context(self):
         expected_order = sorted(ViewTests.user_posts,
@@ -185,7 +185,9 @@ class ViewTests(TestCase):
         })
         response = ViewTests.author_client.get(url)
         assert response.context['post'] == ViewTests.posts[5]
-        self.assertTrue(response.context['post'].image.url.startswith("/media/posts/small"))
+        self.assertTrue(
+            response.context['post'].image.url.startswith("/media/posts/small"
+        ))
 
     def test_post_edit_context(self):
         url = reverse('posts:post_edit', kwargs={
@@ -231,8 +233,8 @@ class ViewTests(TestCase):
 
     def test_comment(self):
         post = Post.objects.create(
-                author=ViewTests.author, text='Тестовый пост'
-            )
+            author=ViewTests.author, text='Тестовый пост'
+        )
         form_data = {
             'text': 'текст'
         }

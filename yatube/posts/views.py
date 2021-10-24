@@ -43,7 +43,7 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     following = request.user.is_authenticated and Follow.objects.filter(
         author=user, user=request.user
-        ).exists()
+    ).exists()
     post_list = Post.objects.filter(author=user)
     paginator = Paginator(post_list, settings.PAGINATOR_OBJECTS_PER_PAGE)
     page_number = request.GET.get("page")
@@ -135,7 +135,7 @@ def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
     if request.user.username != username and not Follow.objects.filter(
         author=author, user=request.user
-        ).exists():
+    ).exists():
         follow = Follow(author=author, user=request.user)
         follow.save()
     return render(request, 'posts/follow.html')
