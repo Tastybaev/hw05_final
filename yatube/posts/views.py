@@ -71,6 +71,7 @@ def post_detail(request, post_id):
         comment.post = post
         comment.save()
         return redirect('posts:post_detail', post_id=post_id)
+    context['comment'] = form
     return render(request, 'posts/post_detail.html', context)
 
 
@@ -116,7 +117,11 @@ def add_comment(request, post_id):
 
 @login_required
 def follow_index(request):
-    post = Post.object.filter(author__following__user=request.user)
+    posts = Post.objects.filter(author__following__user=request.user)
+    paginator = Paginator(posts, settings.PAGINATOR_OBJECTS_PER_PAGE)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     return render(request, 'posts/follow.html', {'page_obj': page_obj})
 
 @login_required
