@@ -3,6 +3,7 @@
 {% block content %}
 {% load thumbnail %}
   <h1> Подписка </h1>
+  {% include 'posts/includes/switcher.html' with follow=True %}
   {% for post in page_obj %}
 
     <ul>
