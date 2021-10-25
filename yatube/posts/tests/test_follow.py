@@ -24,7 +24,7 @@ class FollowTests(TestCase):
         cls.unsubscribed_user_client = Client()
         cls.unsubscribed_user_client.force_login(cls.unsubscribed_user)
 
-    def test_follow_unfollow(self):
+    def test_follow(self):
         url = reverse('posts:profile_follow', kwargs={
             'username': FollowTests.author.username,
         })
@@ -33,6 +33,7 @@ class FollowTests(TestCase):
             author=FollowTests.author, user=FollowTests.reader
         ).exists())
 
+    def test_unfollow(self):
         url = reverse('posts:profile_unfollow', kwargs={
             'username': FollowTests.author.username,
         })
