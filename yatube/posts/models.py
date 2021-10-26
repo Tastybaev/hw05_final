@@ -96,7 +96,7 @@ class Follow(models.Model):
     follow_time = models.DateTimeField(auto_now=True)
 
     class Meta:
-        constraints = [
-        models.UniqueConstraint(
-        fields=['author', 'user'], name='unique_follow'
+        constraints = [models.UniqueConstraint(
+            fields=['author', 'user'],
+            name='unique_follow'
         )]
