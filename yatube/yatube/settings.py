@@ -7,7 +7,10 @@ SECRET_KEY = 'a_%7oitf)j)g2os77!c+^=y**f1urnt*^2xxv*09dp9b+e64ka'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['testserver', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [
+    'www.tastybaev.pythonanywhere.com',
+    'tastybaev.pythonanywhere.com',
+] 
 
 
 INSTALLED_APPS = [
