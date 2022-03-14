@@ -7,10 +7,6 @@ SECRET_KEY = 'a_%7oitf)j)g2os77!c+^=y**f1urnt*^2xxv*09dp9b+e64ka'
 
 DEBUG = True
 
-# ALLOWED_HOSTS = [
-#     'www.tastybaev.pythonanywhere.com',
-#     'tastybaev.pythonanywhere.com',
-# ] 
 ALLOWED_HOSTS = ['testserver', '127.0.0.1', 'localhost']
 
 
@@ -26,11 +22,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sorl.thumbnail',
-    'debug_toolbar',
-]
-
-INTERNAL_IPS = [
-    '127.0.0.1',
 ]
 
 MIDDLEWARE = [
@@ -41,7 +32,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'yatube.urls'
